@@ -1,4 +1,5 @@
-import java.awt.Image;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public enum BlockEnum {
 	DIRT (),
@@ -14,6 +15,6 @@ public enum BlockEnum {
 	WATER ();
 	
 	private int type;
-	private Image image;
+	private BufferedImage image;
 	
 }
