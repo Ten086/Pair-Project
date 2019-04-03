@@ -21,12 +21,12 @@ public enum BlockEnum {
 	private static final String pathEnd = ".png";
 	
 	private final BufferedImage image;
-	private final char type = 'X';
+	private char type = 'X';
 	
 	private BlockEnum(String name) {
 		BufferedImage tempImage = null;
 		try {
-			tempImage = ImageIO.read(new File(fileName));
+			tempImage = ImageIO.read(new File(pathStart + name + pathEnd));
 		} catch (Exception e) {
 			tempImage = null;
 			System.out.println("NULL BLOCK IMAGE");
