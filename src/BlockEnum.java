@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public enum BlockEnum {
 	DIRT ("dirt"),
-	/*GRASS ("Pictures/grass.png"),
+	GRASS ("Pictures/grass.png"),
 	SAND ("Pictures/sand.png"),
 	SNOW ("Pictures/snow.png"),
 	TREETRUNK ("Pictures/treetrunk.png"),
@@ -15,7 +15,7 @@ public enum BlockEnum {
 	ROOF1 ("Pictures/roof1.png"),
 	ROOF2 ("Pictures/roof2.png"),
 	ROCK ("Pictures/rock.png"),
-	WATER ("Pictures/water.png")*/;
+	WATER ("Pictures/water.png");
 	
 	private static final String pathStart = "Pictures/";
 	private static final String pathEnd = ".png";
@@ -40,7 +40,7 @@ public enum BlockEnum {
 	}
 	
 	public String toString() {
-		return "
+		return "";
 	}
 	
 }
