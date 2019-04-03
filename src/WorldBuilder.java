@@ -2,14 +2,14 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class WorldBuilder {
-	final static int WORLDHEIGHT = 50;
-	final static int BASEDIRTHEIGHT = 12;
+	final static int WORLDHEIGHT = 6;
+	final static int BASEDIRTHEIGHT = 3;
 	private static BlockEnum[][] genSnow(int width, int startHeight, int endHeight) {
 		final int SNOWLAYERHEIGHT = 12;
 		BlockEnum[][] world = new BlockEnum[WORLDHEIGHT][width];
 		for(int i=0; i<width; i++) {
 			int dirtHeight = BASEDIRTHEIGHT+(int)(3d*Math.random()-1);
-			for(int j=0;j<BASEDIRTHEIGHT; j++) {
+			for(int j=0;j<dirtHeight; j++) {
 				world[j][i] = BlockEnum.DIRT;
 			}
 		}
@@ -100,14 +100,14 @@ public class WorldBuilder {
 		}
 		return world;
 	}
-	public static void genWorld() {
+	public static BlockEnum[][] genWorld() {
 		BlockEnum[][] world;
 		BlockEnum[][] snow = genSnow(50,50,50);
 		BlockEnum[][] desert = genDesert(50,50,50);
 		BlockEnum[][] grass = genGrass(50,50,50);
 		BlockEnum[][] rainforest = genRainforest(50,50,50);
 		BlockEnum[][] ocean = genOcean(50,50,50);
-		world = new BlockEnum[WORLDHEIGHT][snow[0].length+snow[0].length+desert[0].length + grass[0].length + rainforest[0].length + ocean[0].length];
+		world = new BlockEnum[WORLDHEIGHT][snow[0].length+desert[0].length + grass[0].length + rainforest[0].length + ocean[0].length];
 		Integer[] biomeOrder = {0,1,2,3,4};
 		Collections.shuffle(Arrays.asList(biomeOrder));
 
@@ -129,20 +129,23 @@ public class WorldBuilder {
 			else if(biomeOrder[i]==4) {
 				activeBiome = ocean;
 			}
-			int emptyWorldRow =0;
-			while(world[0][i]!=null) {
-				emptyWorldRow++;
+			int col =0;
+			while(world[0][col]!=null) {
+				col++;
 			}
 			for(int j=0; j<activeBiome.length; j++) {
 				for(int k=0; k<activeBiome[0].length; k++) {
-					world[j][emptyWorldRow+k] = activeBiome[j][k];
+					world[j][col+k] = activeBiome[j][k];
 				}
 			}
 		}
 		for(int i=0; i<world.length; i++) {
 			for(int j=0; j<world[0].length; j++) {
-				System.out.print(world[0]);
+				System.out.print(world[i][j]);
 			}
+			System.out.println();
 		}
+		System.out.println();
+		return world;
 	}
 }
