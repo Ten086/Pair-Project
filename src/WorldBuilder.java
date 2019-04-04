@@ -2,24 +2,27 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class WorldBuilder {
-	final static int WORLDHEIGHT = 6;
-	final static int BASEDIRTHEIGHT = 3;
+	final static int WORLDHEIGHT = 12;
+	final static int BASEDIRTHEIGHT = 6;
 	private static BlockEnum[][] genSnow(int width, int startHeight, int endHeight) {
 		final int SNOWLAYERHEIGHT = 12;
 		BlockEnum[][] world = new BlockEnum[WORLDHEIGHT][width];
 		for(int i=0; i<width; i++) {
-			int dirtHeight = BASEDIRTHEIGHT+(int)(3d*Math.random()-1);
+			int dirtHeight = BASEDIRTHEIGHT;
 			for(int j=0;j<dirtHeight; j++) {
 				world[j][i] = BlockEnum.DIRT;
 			}
 		}
 		
 		for(int i=0; i<width; i++) {
-			int j=0;
-			while(world[j][i] != null) {
-				j++;
+			double  height = (Math.sin(i/5)*2) + 2;
+			double height2 = height + (Math.sin(i/Math.random()+.5)*3);
+			double height3 = height + (Math.sin(i/Math.random()+.5)*1);
+
+			for(int j=0; j<height; j++) {
+				world[j+BASEDIRTHEIGHT][i] = BlockEnum.SNOW;
+
 			}
-			world[j][i] = BlockEnum.SNOW;
 		}
 		return world;
 	}
