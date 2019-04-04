@@ -59,7 +59,7 @@ public class Screen extends JPanel implements KeyListener {
 	}
 
 	private void drawWorld(Graphics g, BlockEnum[][] world) {
-		for (int r = 0; r < world.length; r++) {
+		for (int r = 0; r < world.length;r++) {
 			for (int c = 0; c < world[0].length; c++) {
 				drawBlock(g, world[r][c], (c * 50) + xPos, yPos - (r * 50));
 			}
