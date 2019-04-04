@@ -19,6 +19,7 @@ public class Screen extends JPanel implements KeyListener {
 	private int yPos = 500 + 0;
 	private BufferedImage charImage;
 	private BlockEnum[][] world;
+	private final int blockSize = 10;
 
 	public Screen() {
 
@@ -41,6 +42,7 @@ public class Screen extends JPanel implements KeyListener {
 		frame = new JFrame("Bad RPG");
 		frame.setContentPane(this);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setUndecorated(true);
 		frame.setVisible(true);
 		frame.addKeyListener(this);
@@ -61,7 +63,7 @@ public class Screen extends JPanel implements KeyListener {
 	private void drawWorld(Graphics g, BlockEnum[][] world) {
 		for (int r = 0; r < world.length;r++) {
 			for (int c = 0; c < world[0].length; c++) {
-				drawBlock(g, world[r][c], (c * 50) + xPos, yPos - (r * 50));
+				drawBlock(g, world[r][c], (c * blockSize) + xPos, yPos - (r * blockSize));
 			}
 		}
 	}
@@ -87,7 +89,7 @@ public class Screen extends JPanel implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//System.out.println(e.getKeyCode());
-		int increment = 50;
+		int increment = blockSize;
 		//right
 		if (e.getKeyCode() == 39) {
 			xPos -= increment;
