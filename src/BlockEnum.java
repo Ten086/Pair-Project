@@ -22,7 +22,7 @@ public enum BlockEnum {
 	
 	private final BufferedImage image;
 	private char type = 'X';
-	
+
 	private BlockEnum(String name) {
 		BufferedImage tempImage = null;
 		try {
@@ -42,5 +42,4 @@ public enum BlockEnum {
 	public String toString() {
 		return "" + type;
 	}
-	
 }
