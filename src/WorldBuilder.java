@@ -219,7 +219,7 @@ public class WorldBuilder {
 			}
 		}
 		for(int i=0; i<width; i++) {
-			double height = - Math.pow((Math.sin(i*Math.PI/width) * 400), .5) ;
+			double height = - Math.pow((Math.sin(i*Math.PI/width)) * (startHeight-2), .5) ;
 			for(int j=0; j>height; j--) {
 				world[j+startHeight][i] = BlockEnum.SNOW;	
 			}
