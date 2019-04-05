@@ -23,8 +23,8 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 	public static final int BLOCKSIZE = 30;
 	private int charX = 600;
 	private int charY = 300;
-	private int xPos = 500;
-	private int yPos = 1600;
+	private int xPos = 600;
+	private int yPos = 1800;
 	private Character character;
 	private Rectangle charRect = new Rectangle(charX, charY, BLOCKSIZE, BLOCKSIZE * 2);
 	private Rectangle belowRect;
@@ -169,7 +169,12 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 	private void drawWorld(Graphics g, BlockEnum[][] world) {
 		for (int r = 0; r < world.length;r++) {
 			for (int c = 0; c < world[0].length; c++) {
-				drawBlock(g, world[r][c], (xPos + c * BLOCKSIZE), yPos - (r * BLOCKSIZE));
+				int blockX = xPos + c * BLOCKSIZE;
+				int blockY = yPos - r * BLOCKSIZE;
+				if (blockX > -BLOCKSIZE && blockX < frame.getWidth() + BLOCKSIZE
+						&& blockY > -BLOCKSIZE && blockY < frame.getHeight() + BLOCKSIZE) {
+				drawBlock(g, world[r][c], blockX, blockY);
+				}
 			}
 		}
 	}
@@ -214,7 +219,8 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
-
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		xPos += xVel;
 		yPos += yVel;
@@ -223,6 +229,7 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 		}
 		else {
 			yVel = 0;
+			yPos = (yPos/BLOCKSIZE+1) * BLOCKSIZE -1;
 		}
 		repaint();
 	}
