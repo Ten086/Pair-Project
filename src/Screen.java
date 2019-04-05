@@ -13,13 +13,13 @@ import javax.swing.*;
 public class Screen extends JPanel implements KeyListener {
 
 	private JFrame frame;
-	private int initialX = 600;
-	private int initialY = 300;
+	private int initialX = 609;
+	private int initialY = 400;
 	private int xPos = 500 + 0;
 	private int yPos = 500 + 0;
 	private BufferedImage charImage;
 	private BlockEnum[][] world;
-	private final int blockSize = 10;
+	public static final int BLOCKSIZE = 20;
 
 	public Screen() {
 
@@ -32,9 +32,9 @@ public class Screen extends JPanel implements KeyListener {
 		}
 		charImage = tempImage;
 
-		System.out.println("before gen");
+		//System.out.println("before gen");
 		world = WorldBuilder.genWorld();
-		System.out.println("after gen");
+		//System.out.println("after gen");
 		initializeSwing();
 	}
 
@@ -56,14 +56,14 @@ public class Screen extends JPanel implements KeyListener {
 		super.paintComponent(g);
 		this.setBackground(new Color(0, 144, 255));
 		drawWorld(g, world);
-		//System.out.println("after draw");
 		drawChar(g);
+		drawCollectable(g, new Collectable(700, 300, "stick"));
 	}
 
 	private void drawWorld(Graphics g, BlockEnum[][] world) {
 		for (int r = 0; r < world.length;r++) {
 			for (int c = 0; c < world[0].length; c++) {
-				drawBlock(g, world[r][c], (c * blockSize) + xPos, yPos - (r * blockSize));
+				drawBlock(g, world[r][c], (c * BLOCKSIZE) + xPos, yPos - (r * BLOCKSIZE));
 			}
 		}
 	}
@@ -78,46 +78,34 @@ public class Screen extends JPanel implements KeyListener {
 		}
 		g.drawImage(tempImage, initialX, initialY, this);
 	}
+	
 	private void drawBlock(Graphics g, BlockEnum b, int x, int y) {
 		if (b != null) {
-			Graphics2D tempG = (Graphics2D) b.getImage().getGraphics();
-			tempG.scale(0.1, 0.1);
 			g.drawImage(b.getImage(), x, y, this);
+		}
+	}
+	
+	private void drawCollectable(Graphics g, Collectable c) {
+		if (c != null) {
+			g.drawImage(c.getImage(), c.getX(), c.getY(), this);
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		//System.out.println(e.getKeyCode());
-		int increment = blockSize;
-		//right
-		if (e.getKeyCode() == 39) {
-			xPos -= increment;
-		}
-		//left
-		else if (e.getKeyCode() == 37) {
-			xPos += increment;
-		}
-		//up 
-		if (e.getKeyCode() == 38) {
-			yPos += increment;
-		}
-		//down
-		else if (e.getKeyCode() == 40) {
-			yPos -= increment;
-		}
+		// TODO Auto-generated method stub
 		repaint();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

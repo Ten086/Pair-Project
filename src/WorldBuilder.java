@@ -280,13 +280,13 @@ public class WorldBuilder {
 			}
 			startHeight--;
 		}
-		for(int i=0; i<world.length; i++) {
+		/*for(int i=0; i<world.length; i++) {
 			for(int j=0; j<world[0].length; j++) {
 				System.out.print(world[i][j]);
 			}
 			System.out.println();
 		}
-		System.out.println();
+		System.out.println();*/
 		return world;
 	}
 }
