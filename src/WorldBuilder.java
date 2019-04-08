@@ -2,7 +2,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class WorldBuilder {
-	final static int WORLDHEIGHT = 100;
+	public final static int WORLDHEIGHT = 100;
+	public final static int BIOMEWIDTH = 250;
 	private static BlockEnum[][] genSnow(int width, int startHeight, int endHeight) {
 		final int SNOWLAYERHEIGHT = 12;
 		BlockEnum[][] world = new BlockEnum[WORLDHEIGHT][width];
@@ -68,7 +69,7 @@ public class WorldBuilder {
 				world[j][i] = BlockEnum.SAND;
 			}
 		}
-		
+
 		double wave1PhaseShift =  Math.random()* 2-1;
 		double wave2PhaseShift =  Math.random()-.5;
 		//double wave3PhaseShift = Math.random();
@@ -111,7 +112,7 @@ public class WorldBuilder {
 				world[j][i] = BlockEnum.DIRT;
 			}
 		}
-		
+
 		double wave1PhaseShift =  Math.random()* 2-1;
 		double wave2PhaseShift =  Math.random()-.5;
 		double wave3PhaseShift = Math.random();
@@ -152,7 +153,7 @@ public class WorldBuilder {
 			}
 
 		}
-		
+
 		return world;
 	}
 	private static BlockEnum[][] genGrass(int width, int startHeight, int endHeight) {
@@ -166,11 +167,11 @@ public class WorldBuilder {
 				world[j][i] = BlockEnum.DIRT;
 			}
 		}
-		
+
 		double wave1PhaseShift =  Math.random()* 2-1;
 		double wave2PhaseShift =  Math.random()-.5;
 		double direction = Math.random();
-		
+
 		//double wave3PhaseShift = Math.random();
 		for(int i=0; i<width; i++) {
 			double  height = (Math.sin(i/30d + wave1PhaseShift)*4 ) + 4;
@@ -226,15 +227,15 @@ public class WorldBuilder {
 		}
 		return world;
 	}
+	
 	public static BlockEnum[][] genWorld() {
-		int biomeWidth = 250;
 		BlockEnum[][] world;
 		BlockEnum[][] snow;
 		BlockEnum[][] desert;
 		BlockEnum[][] grass;
 		BlockEnum[][] rainforest;
 		BlockEnum[][] ocean;
-		world = new BlockEnum[WORLDHEIGHT][biomeWidth*5];
+		world = new BlockEnum[WORLDHEIGHT][BIOMEWIDTH*5];
 		Integer[] biomeOrder = {0,1,2,3,4};
 		Collections.shuffle(Arrays.asList(biomeOrder));
 		int startHeight =30;
@@ -242,27 +243,27 @@ public class WorldBuilder {
 		for(int i=0; i<biomeOrder.length; i++) {
 			BlockEnum[][] activeBiome = null;
 			if(biomeOrder[i]==0) {
-				snow = genSnow(biomeWidth,startHeight,50);
+				snow = genSnow(BIOMEWIDTH,startHeight,50);
 				activeBiome=snow;
 			}
 			else if(biomeOrder[i]==1) {
-				desert = genDesert(biomeWidth,startHeight,50);
+				desert = genDesert(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=desert;
 			}
 			else if(biomeOrder[i]==2) {
-				grass = genGrass(biomeWidth,startHeight,50);
+				grass = genGrass(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=grass;
 			}
-			
+
 			else if(biomeOrder[i]==3) {
-				rainforest = genRainforest(biomeWidth,startHeight,50);
+				rainforest = genRainforest(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=rainforest;
 			}
 			else if(biomeOrder[i]==4) {
-				ocean = genOcean(biomeWidth,startHeight,50);
+				ocean = genOcean(BIOMEWIDTH,startHeight,50);
 				activeBiome = ocean;
 			}
 			int col =0;
@@ -280,13 +281,31 @@ public class WorldBuilder {
 			}
 			startHeight--;
 		}
-		/*for(int i=0; i<world.length; i++) {
+		//print(world);
+		return world;
+	}
+	
+	public static BlockEnum[][] flipWorld(BlockEnum[][] world) {
+		BlockEnum[][] newWorld = new BlockEnum[world.length][world[0].length];
+		for (int r = 0; r < newWorld.length; r++) {
+			for (int c = 0; c < newWorld[0].length; c++) {
+				newWorld[r][c] = world[world.length-1-r][c];
+			}
+		}
+		return newWorld;
+	}
+	public static void print(BlockEnum[][] world) {
+		for(int i = world.length - 1; i >= 0; i--) {
 			for(int j=0; j<world[0].length; j++) {
-				System.out.print(world[i][j]);
+				if (world[i][j] != null) {
+					System.out.print(world[i][j]);
+				}
+				else {
+					System.out.print("N");
+				}
 			}
 			System.out.println();
 		}
-		System.out.println();*/
-		return world;
+		System.out.println();
 	}
 }

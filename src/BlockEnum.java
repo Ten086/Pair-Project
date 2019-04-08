@@ -9,13 +9,14 @@ public enum BlockEnum {
 	GRASS ("grass"),
 	SAND ("sand"),
 	SNOW ("snow"),
+	WATER ("water");
 	/*TREETRUNK ("treetrunk"),
 	TREELEAF ("treeleaf"),
 	BRICK ("brick"),
 	ROOF1 ("roof1"),
 	ROOF2 ("roof2"),
 	ROCK ("rock"),
-	WATER ("water")*/;
+	WATER ("water")*/
 	
 	private static final String pathStart = "Pictures/";
 	private static final String pathEnd = ".png";
