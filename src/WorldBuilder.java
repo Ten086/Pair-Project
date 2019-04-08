@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class WorldBuilder {
 	public final static int WORLDHEIGHT = 100;
@@ -228,6 +230,19 @@ public class WorldBuilder {
 		return world;
 	}
 	
+	private static BlockEnum[][] genTown(int width, int startHeight, int endHeight) {
+		final int SNOWLAYERHEIGHT = 12;
+		BlockEnum[][] world = new BlockEnum[WORLDHEIGHT][width];
+		for(int i=0; i<width; i++) {
+			int dirtHeight = startHeight+(int)(3d*Math.random()-1);
+			for(int j=0;j<startHeight; j++) {
+				world[j][i] = BlockEnum.DIRT;
+			}
+			world[startHeight-1][i] = BlockEnum.GRASS;
+		}
+		return world;
+	}
+	
 	public static BlockEnum[][] genWorld() {
 		BlockEnum[][] world;
 		BlockEnum[][] snow;
@@ -235,36 +250,49 @@ public class WorldBuilder {
 		BlockEnum[][] grass;
 		BlockEnum[][] rainforest;
 		BlockEnum[][] ocean;
-		world = new BlockEnum[WORLDHEIGHT][BIOMEWIDTH*5];
-		Integer[] biomeOrder = {0,1,2,3,4};
-		Collections.shuffle(Arrays.asList(biomeOrder));
+		BlockEnum[][] town;
+		
+		world = new BlockEnum[WORLDHEIGHT][BIOMEWIDTH*6];
+		
+		ArrayList<Integer> biomeOrder = new ArrayList<Integer>();
+		biomeOrder.add(0);
+		biomeOrder.add(1);
+		biomeOrder.add(2);
+		biomeOrder.add(3);
+		biomeOrder.add(4);
+		Collections.shuffle(biomeOrder);
+		biomeOrder.add(3, 5);
 		int startHeight =30;
 
-		for(int i=0; i<biomeOrder.length; i++) {
+		for(int i=0; i<biomeOrder.size(); i++) {
 			BlockEnum[][] activeBiome = null;
-			if(biomeOrder[i]==0) {
+			if(biomeOrder.get(i)==0) {
 				snow = genSnow(BIOMEWIDTH,startHeight,50);
 				activeBiome=snow;
 			}
-			else if(biomeOrder[i]==1) {
+			else if(biomeOrder.get(i)==1) {
 				desert = genDesert(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=desert;
 			}
-			else if(biomeOrder[i]==2) {
+			else if(biomeOrder.get(i)==2) {
 				grass = genGrass(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=grass;
 			}
 
-			else if(biomeOrder[i]==3) {
+			else if(biomeOrder.get(i)==3) {
 				rainforest = genRainforest(BIOMEWIDTH,startHeight,50);
 
 				activeBiome=rainforest;
 			}
-			else if(biomeOrder[i]==4) {
+			else if(biomeOrder.get(i)==4) {
 				ocean = genOcean(BIOMEWIDTH,startHeight,50);
 				activeBiome = ocean;
+			}
+			else if(biomeOrder.get(i)==5) {
+				town = genTown(BIOMEWIDTH,startHeight,50);
+				activeBiome = town;
 			}
 			int col =0;
 			while(world[0][col]!=null) {

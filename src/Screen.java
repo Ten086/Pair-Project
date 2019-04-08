@@ -28,7 +28,7 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 	public static final int MOVEINCREMENT = (BLOCKSIZE / 4) * 3;
 	private final int charX = BLOCKSIZE * (BLOCKSWIDE / 2);
 	private final int charY = SCREENHEIGHT / 2 - BLOCKSIZE;
-	private int xPos = -43000;
+	private int xPos = 0;
 	private int yPos = BLOCKSIZE * 80;
 	private Character character;
 	private Rectangle charRect = new Rectangle(charX, charY, BLOCKSIZE, BLOCKSIZE * 2);
