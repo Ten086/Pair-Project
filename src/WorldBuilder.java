@@ -240,6 +240,12 @@ public class WorldBuilder {
 			}
 			world[startHeight-1][i] = BlockEnum.GRASS;
 		}
+		//tree bois
+		for(int i=0; i<4; i++) {
+			for(int j=0; j<6; j++) {
+				world[Math.random()][]
+			}
+		}
 		return world;
 	}
 	
