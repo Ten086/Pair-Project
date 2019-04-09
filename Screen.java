@@ -17,8 +17,7 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-//https://stackoverflow.com/questions/658059/graphics-drawimage-in-java-is-extremely-slow-on-some-computers-yet-much-faster
-//this means something probably idk rip
+
 public class Screen extends JPanel implements KeyListener, ActionListener {
 
 	private JFrame frame;
@@ -31,10 +30,6 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 	private static final int BLOCKSWIDE = 50;
 	public static final int BLOCKSIZE = SCREENWIDTH / BLOCKSWIDE;
 	public static final int MOVEINCREMENT = (BLOCKSIZE / 3) * 2;
-	public static final int GRAVITY = (int)((float)MOVEINCREMENT / 8f);
-	public static final int JUMPVEL = (int)(1.25f * (float)MOVEINCREMENT);
-	public static final int WALK_DEACCEL = MOVEINCREMENT/3;
-
 	private final int charX = BLOCKSIZE * (BLOCKSWIDE / 2);
 	private final int charY = SCREENHEIGHT / 2 - BLOCKSIZE;
 	private final int xStart = charX - (int)((double)WorldBuilder.BIOMEWIDTH * (double)BLOCKSIZE * 3.5);
@@ -67,7 +62,7 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 		initializeSwing();
 		initCollectables();
 		yPos += distanceBelow();
-		timer = new Timer(15, this);
+		timer = new Timer(20, this);
 		timer.start();
 	}
 
@@ -346,35 +341,19 @@ public class Screen extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 		else {
-			if(xVel >0) {
-				if(xVel < WALK_DEACCEL) {
-					xVel=0; 
-				}
-				else {
-					xVel -= WALK_DEACCEL;
-				}
-					
-			}
-			else if (xVel<0){
-				if(xVel > -WALK_DEACCEL) {
-					xVel=0; 
-				}
-				else {
-					xVel += WALK_DEACCEL;
-				}	
-			}
+			xVel = 0;
 		}
 
 		//up 
 		if (keysPressed.contains(38) && collidesBelow()) {
-			yVel = JUMPVEL;
+			yVel = (int)(2.5f * (float)MOVEINCREMENT);
 		}
 		//yPos positive makes character go up relative to world
 		//xPos positive makes character go left relative to world
 		xPos += xVel;
 		yPos += yVel;
 		if (!collidesBelow()) {
-			yVel -= GRAVITY;
+			yVel -= (int)((float)MOVEINCREMENT / 4f);
 		}
 		else {
 			yVel = 0;

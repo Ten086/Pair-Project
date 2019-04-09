@@ -6,6 +6,7 @@ import java.util.List;
 public class WorldBuilder {
 	public final static int WORLDHEIGHT = 100;
 	public final static int BIOMEWIDTH = 250;
+	public final static int WORLDWIDTH = BIOMEWIDTH * 6;
 	private static BlockEnum[][] genSnow(int width, int startHeight, int endHeight) {
 		final int SNOWLAYERHEIGHT = 12;
 		BlockEnum[][] world = new BlockEnum[WORLDHEIGHT][width];
@@ -222,9 +223,9 @@ public class WorldBuilder {
 			}
 		}
 		for(int i=0; i<width; i++) {
-			double height = - Math.pow((Math.sin(i*Math.PI/width)) * (startHeight-2), .5) ;
+			double height = - Math.pow((Math.sin((float)(i)*Math.PI/(float)width)) , .5)* (startHeight-8) ;
 			for(int j=0; j>height; j--) {
-				world[j+startHeight][i] = BlockEnum.SNOW;	
+				world[j+startHeight][i] = BlockEnum.WATER;	
 			}
 		}
 		return world;
@@ -239,12 +240,6 @@ public class WorldBuilder {
 				world[j][i] = BlockEnum.DIRT;
 			}
 			world[startHeight-1][i] = BlockEnum.GRASS;
-		}
-		//tree bois
-		for(int i=0; i<4; i++) {
-			for(int j=0; j<6; j++) {
-				world[Math.random()][]
-			}
 		}
 		return world;
 	}
